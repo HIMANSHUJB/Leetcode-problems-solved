@@ -1,0 +1,36 @@
+
+class Solution:
+    def combinationSum3(self, k: int, n: int):
+
+        result = []
+
+        def backtrack(start, path, total):
+
+            # Step 1: Check if k numbers selected
+            if len(path) == k:
+
+                # Step 2: Check their sum
+                if total == n:
+                    result.append(path.copy())
+
+                return
+
+            # Step 3: Try numbers from start to 9
+            for num in range(start, 10):
+
+                # Step 4: Sum should not exceed n
+                if total + num > n:
+                    break
+
+                # Step 5: Select number
+                path.append(num)
+
+                # Step 6: Move to next number
+                backtrack(num + 1, path, total + num)
+
+                # Step 7: Undo selection
+                path.pop()
+
+        backtrack(1, [], 0)
+
+        return result
